@@ -1,0 +1,708 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Family Manifesto Builder</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #F8F6F2;
+  --paper: #FFFFFF;
+  --soft: #EFE7DC;
+  --text: #1F1F1F;
+  --muted: #6B6B6B;
+  --accent: #B08A57;
+  --accent-soft: #E7D5B8;
+  --line: #E8E2D8;
+  --shadow: 0 20px 40px rgba(0,0,0,0.06);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(0,0,0,0.015) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.container {
+  width: min(1220px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.hero {
+  padding: 80px 0 60px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 22px;
+  font-weight: 700;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(54px, 7vw, 84px);
+  line-height: 0.95;
+  font-weight: 600;
+  letter-spacing: -2px;
+  margin-bottom: 28px;
+}
+
+.hero p {
+  font-size: 18px;
+  color: var(--muted);
+  max-width: 560px;
+  margin-bottom: 36px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg,#C59B63,#A97B44);
+  color: white;
+  border: none;
+  padding: 18px 28px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .25s ease;
+  box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: white;
+  border: 1px solid var(--line);
+  padding: 18px 28px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hero-image-wrap {
+  position: relative;
+}
+
+.hero-image {
+  width: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+}
+
+.hero-image img {
+  width: 100%;
+  display: block;
+  height: 720px;
+  object-fit: cover;
+}
+
+.floating-card {
+  position: absolute;
+  bottom: -30px;
+  left: -30px;
+  background: white;
+  padding: 28px;
+  width: 320px;
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+}
+
+.floating-card .mini {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.floating-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 34px;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.floating-card p {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.section {
+  padding: 100px 0;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 60px;
+}
+
+.section-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(42px,5vw,64px);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.section-header p {
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 24px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 30px;
+  padding: 40px 34px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.stat-title {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.stat-card p {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.mockup-section {
+  background: linear-gradient(to bottom, transparent 0%, #F1ECE5 100%);
+}
+
+.mockup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.mockup-image {
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.mockup-image img {
+  width: 100%;
+  height: 680px;
+  object-fit: cover;
+}
+
+.editor-window {
+  background: #1D1B18;
+  color: white;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+}
+
+.editor-top {
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+}
+
+.copy-btn {
+  background: rgba(255,255,255,0.08);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.editor-body {
+  padding: 34px;
+  max-height: 650px;
+  overflow-y: auto;
+  font-size: 13px;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.82);
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+.quote-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 24px;
+}
+
+.quote-card {
+  background: white;
+  border-radius: 30px;
+  padding: 40px;
+  box-shadow: var(--shadow);
+}
+
+.quote-card p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  line-height: 1.2;
+  margin-bottom: 26px;
+}
+
+.quote-author {
+  font-size: 13px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.cta {
+  padding: 120px 0;
+}
+
+.cta-box {
+  background: #1D1B18;
+  color: white;
+  border-radius: 42px;
+  padding: 100px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.08), transparent 40%);
+}
+
+.cta-box h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(50px,6vw,78px);
+  line-height: 0.95;
+  margin-bottom: 26px;
+  position: relative;
+}
+
+.cta-box p {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: rgba(255,255,255,0.75);
+  font-size: 18px;
+  position: relative;
+}
+
+.footer {
+  padding: 40px 0 80px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media (max-width: 1024px) {
+  .hero-grid,
+  .mockup-grid,
+  .quote-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .floating-card {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .hero-image img,
+  .mockup-image img {
+    height: auto;
+  }
+
+  .section {
+    padding: 70px 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container hero-grid">
+
+    <div>
+      <div class="eyebrow">Family Operating System</div>
+
+      <h1>
+        Build the family culture
+        your child grows up inside.
+      </h1>
+
+      <p>
+        A beautifully designed AI-powered manifesto builder for intentional modern parents.
+        Create a printable family philosophy in minutes — no coding, no subscription,
+        yours forever.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="btn-primary">Start Building Your Manifesto</button>
+        <button class="btn-secondary">See Example Manifesto</button>
+      </div>
+    </div>
+
+    <div class="hero-image-wrap">
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1600&auto=format&fit=crop" alt="Mother using laptop">
+      </div>
+
+      <div class="floating-card">
+        <div class="mini">What families say</div>
+        <h3>
+          “It felt like writing
+          our family constitution.”
+        </h3>
+        <p>
+          Used by thoughtful modern parents creating intentional family systems.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="eyebrow">Why parents love it</div>
+      <h2>
+        Calm clarity for modern parenting.
+      </h2>
+      <p>
+        Turn vague parenting values into a beautiful, printable manifesto your family can actually live by.
+      </p>
+    </div>
+
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-number">5</div>
+        <div class="stat-title">Minutes</div>
+        <p>Create your first family manifesto faster than a coffee break.</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">0</div>
+        <div class="stat-title">Subscriptions</div>
+        <p>Your file lives on your own computer forever.</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">1</div>
+        <div class="stat-title">Beautiful PDF</div>
+        <p>Print and frame your family philosophy beautifully.</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">∞</div>
+        <div class="stat-title">Possibilities</div>
+        <p>Reuse the same system to build other family tools.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="section mockup-section">
+  <div class="container mockup-grid">
+
+    <div>
+      <div class="eyebrow">How it works</div>
+
+      <h2 style="font-family:'Cormorant Garamond', serif; font-size:64px; line-height:1; margin-bottom:24px;">
+        Copy the prompt.
+        Build your system.
+      </h2>
+
+      <p style="color:var(--muted); font-size:17px; margin-bottom:32px;">
+        Paste a beautifully structured prompt into Claude or ChatGPT.
+        The AI generates your custom Family Manifesto Builder instantly.
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:20px;">
+
+        <div style="background:white; border-radius:24px; padding:26px; box-shadow:var(--shadow);">
+          <div style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:10px;">Step 01</div>
+          <h3 style="font-size:26px; font-family:'Cormorant Garamond', serif; margin-bottom:10px;">Copy the calibrated prompt</h3>
+          <p style="color:var(--muted);">One structured prompt engineered specifically for modern parenting systems.</p>
+        </div>
+
+        <div style="background:white; border-radius:24px; padding:26px; box-shadow:var(--shadow);">
+          <div style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:10px;">Step 02</div>
+          <h3 style="font-size:26px; font-family:'Cormorant Garamond', serif; margin-bottom:10px;">Generate your builder</h3>
+          <p style="color:var(--muted);">Claude or ChatGPT returns a complete, beautiful HTML experience.</p>
+        </div>
+
+        <div style="background:white; border-radius:24px; padding:26px; box-shadow:var(--shadow);">
+          <div style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:10px;">Step 03</div>
+          <h3 style="font-size:26px; font-family:'Cormorant Garamond', serif; margin-bottom:10px;">Save & print forever</h3>
+          <p style="color:var(--muted);">Your family manifesto becomes a printable artifact you revisit every season.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="editor-window">
+      <div class="editor-top">
+        <div class="dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+
+        <button class="copy-btn" onclick="copyPrompt()">Copy Prompt</button>
+      </div>
+
+      <div class="editor-body" id="promptText">
+YOU ARE an expert front-end developer who writes clean,
+beautiful, mom-friendly HTML.
+
+BUILD a single, self-contained HTML file called
+"Family Manifesto Builder."
+
+The user opens the file by double-clicking it.
+They see a form on the left and a live preview on the right.
+
+As they type, the manifesto updates instantly.
+
+Tone:
+Warm.
+Editorial.
+Premium motherhood aesthetic.
+Not corporate.
+Not techy.
+
+Use:
+- Cormorant Garamond
+- Inter
+- Warm beige palette
+- Luxury whitespace
+- Printable manifesto layout
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="eyebrow">Transformation</div>
+      <h2>
+        From vague intentions
+        to family language.
+      </h2>
+    </div>
+
+    <div class="quote-grid">
+
+      <div class="quote-card">
+        <p>
+          “This made me realize we had values,
+          but no language for them yet.”
+        </p>
+
+        <div class="quote-author">
+          Mother of two · Austin, Texas
+        </div>
+      </div>
+
+      <div class="quote-card">
+        <p>
+          “We finally aligned on discipline,
+          screens, and the kind of person we want to raise.”
+        </p>
+
+        <div class="quote-author">
+          First-time parents · London
+        </div>
+      </div>
+
+      <div class="quote-card">
+        <p>
+          “It became our parenting north star.
+          We printed it and framed it.”
+        </p>
+
+        <div class="quote-author">
+          Montessori family · Vancouver
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container mockup-grid">
+
+    <div class="mockup-image">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop" alt="Manifesto mockup">
+    </div>
+
+    <div>
+      <div class="eyebrow">What you will create</div>
+
+      <h2 style="font-family:'Cormorant Garamond', serif; font-size:64px; line-height:1; margin-bottom:24px;">
+        A printable family philosophy.
+      </h2>
+
+      <p style="font-size:18px; color:var(--muted); margin-bottom:30px;">
+        Your manifesto becomes a living document for:
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:18px;">
+
+        <div style="background:white; padding:22px 26px; border-radius:22px; box-shadow:var(--shadow);">
+          Parenting values & discipline alignment
+        </div>
+
+        <div style="background:white; padding:22px 26px; border-radius:22px; box-shadow:var(--shadow);">
+          Screen-time & AI philosophy
+        </div>
+
+        <div style="background:white; padding:22px 26px; border-radius:22px; box-shadow:var(--shadow);">
+          Grandparent & caregiver consistency
+        </div>
+
+        <div style="background:white; padding:22px 26px; border-radius:22px; box-shadow:var(--shadow);">
+          A yearly reflection ritual for your family
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+
+    <div class="cta-box">
+      <h2>
+        One day your child
+        will leave home.
+      </h2>
+
+      <p>
+        This is the culture they will carry with them.
+        Build it intentionally.
+      </p>
+
+      <button class="btn-primary">
+        Create Your Manifesto
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  Family Manifesto Builder · Luxury Editorial Edition · 2026
+</footer>
+
+<script>
+function copyPrompt() {
+  const text = document.getElementById('promptText').innerText;
+  navigator.clipboard.writeText(text);
+
+  const btn = document.querySelector('.copy-btn');
+  btn.innerText = 'Copied ✓';
+
+  setTimeout(() => {
+    btn.innerText = 'Copy Prompt';
+  }, 2000);
+}
+</script>
+
+</body>
+</html>
+```
